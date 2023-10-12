@@ -1,7 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useNavbar } from "../providers/navbarProvider";
-import { Item } from "../components/item";
-
+import { Item } from "../components/Item";
 export const Items = () => {
   const { items } = useNavbar();
 
