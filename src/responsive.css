@@ -1,0 +1,116 @@
+/*
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+900 - 1200px:   Tablet landscape
+[1200 - 1800] is where our normal styles apply*/
+@media (min-width: 200px) {
+  .top-section {
+    display: flex;
+    align-items: center;
+    padding: 20px 15px;
+    justify-content: space-between;
+  }
+  .top-bar {
+    flex-direction: column;
+  }
+  .bars {
+    display: flex;
+    font-size: 25px;
+  }
+
+  .link-container {
+    flex-direction: column;
+    margin: 0px;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .link {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    transition: all 0.5s;
+  }
+  .link:hover {
+    background: lightskyblue;
+    color: #000;
+    transition: all 0.5s;
+  }
+  .active {
+    background: lightskyblue;
+    color: #000;
+  }
+  main {
+    height: 100%;
+  }
+  .page-body {
+    font-size: 100%;
+  }
+
+  .project {
+    padding: 10px;
+  }
+
+  .project img,
+  .project .overview {
+    max-width: 390px;
+  }
+
+  .project img {
+    width: 100%;
+  }
+
+  .project .overview {
+    text-align: center;
+  }
+  .footer {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 600px) {
+  .container-hero {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .top-bar {
+    flex-direction: row;
+  }
+
+  .top-section {
+    border: none;
+  }
+  .link-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0px;
+    /* margin: 0px 5%; */
+  }
+  .link {
+    width: fit-content;
+  }
+
+  .project img {
+    width: 75%;
+  }
+}
+@media (min-width: 900px) {
+  .project {
+    padding: 10px;
+  }
+  .project img,
+  .project .overview {
+    max-width: 380px;
+  }
+
+  .project .overview {
+    text-align: left;
+  }
+}
+@media (min-width: 1200px) {
+  .project img,
+  .project .overview {
+    max-width: 500px;
+  }
+}
