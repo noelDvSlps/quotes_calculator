@@ -10,6 +10,7 @@ import ScrollToTop from "./helpers/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 import { Items } from "./pages/Items";
 import { Quotes } from "./pages/Quotes";
+import { Home } from "./pages/Home";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Navbar>
           <Toaster position="top-center" reverseOrder={false} />
           <Routes>
-            <Route path="/" element={<Items />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/items" element={<Items />} />
             <Route path="/quotes" element={<Quotes />} />
           </Routes>
         </Navbar>

@@ -88,6 +88,7 @@ main {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
 .form-container {
@@ -105,6 +106,7 @@ main {
   display: flex;
   align-items: center;
   padding: 0px 15px;
+  margin-left: 5px;
   transition: all 0.5s;
   text-decoration: none;
   height: fit-content;
@@ -138,6 +140,10 @@ main {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin: 10px 0px;
+  border: 1px solid whitesmoke;
+  padding: 5px;
+  border-radius: 8px;
 }
 .item-container {
   display: flex;

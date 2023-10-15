@@ -1,11 +1,13 @@
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 export const Item = ({ item }) => {
+  const navigate = useNavigate();
   return (
     <div className="item">
-      {Object.keys(item).map((fn, index) => {
-        if (fn !== "id") {
+      {Object.keys(item).map((property, index) => {
+        if (property !== "id") {
           return (
             <div
               key={index}
@@ -21,15 +23,22 @@ export const Item = ({ item }) => {
                   paddingRight: "5px",
                 }}
               >
-                {fn}
+                {property}
               </div>
-              <div style={{ flex: "1fr", paddingLeft: "5px" }}>{item[fn]}</div>
+              <div style={{ flex: "1fr", paddingLeft: "5px" }}>
+                {item[property]}
+              </div>
             </div>
           );
         }
       })}
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Button variant="outline-light" style={{ margin: "10px" }}>
+        <Button
+          variant="outline-light"
+          style={{ margin: "10px" }}
+          onClick={() => navigate(`/quotes/${item.id}`)}
+          // as={Link} to={item.path}
+        >
           Edit
         </Button>
         <Button variant="outline-light" style={{ margin: "10px" }}>

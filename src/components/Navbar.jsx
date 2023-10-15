@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 // import myPic from "../assets/images/me.jpg";
 import { FaTh, FaUserAlt } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavbar } from "../providers/navbarProvider";
 import { Bars } from "./Bars";
-import { Footer } from "./Footer";
+import { Nav } from "react-bootstrap";
+import { Dropdown } from "./Dropdown";
 // import Background from "../assets/images/react.jpg";
 export const Navbar = ({ children }) => {
   const maxSizeToShowBurger = useRef(600);
@@ -17,13 +18,39 @@ export const Navbar = ({ children }) => {
   const menuItem = [
     {
       path: "/",
-      name: "home",
+      name: "HOME",
       icon: <FaTh />,
     },
     {
-      path: "/quotes",
-      name: "quotes",
+      path: "/items",
+      name: "Items",
       icon: <FaUserAlt />,
+      submenu: [
+        {
+          name: "View",
+          path: "/items",
+        },
+        {
+          name: "Add Item",
+          path: "/",
+        },
+      ],
+    },
+    {
+      path: "/quotes",
+      name: "Quotes",
+      icon: <FaTh />,
+    },
+    {
+      path: "/settings",
+      name: "Settings",
+      icon: <FaTh />,
+      submenu: [
+        {
+          path: "/",
+          name: "Cost per Hour",
+        },
+      ],
     },
   ];
   useEffect(() => {
@@ -65,6 +92,20 @@ export const Navbar = ({ children }) => {
         <div className="link-container">
           {(!burger || (burger && isOpen)) &&
             menuItem.map((item, index) => (
+              <div key={index}>
+                {Object.hasOwn(item, "submenu") ? (
+                  <Dropdown item={item} />
+                ) : (
+                  <div className={"link"}>
+                    <Nav.Link as={Link} to={item.path}>
+                      {item.name}
+                    </Nav.Link>
+                  </div>
+                )}
+              </div>
+            ))}
+          {/* {(!burger || (burger && isOpen)) &&
+            menuItem.map((item, index) => (
               <NavLink
                 to={item.path}
                 key={index}
@@ -80,7 +121,7 @@ export const Navbar = ({ children }) => {
                   {item.name}
                 </div>
               </NavLink>
-            ))}
+            ))} */}
         </div>
       </div>
 
@@ -94,7 +135,7 @@ export const Navbar = ({ children }) => {
       >
         <div className="children">{children}</div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
