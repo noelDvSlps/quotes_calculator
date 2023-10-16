@@ -21,8 +21,10 @@ body {
 #root {
   min-height: 100vh;
   flex: 1;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #14202b;
+  /* color: rgba(255, 255, 255, 0.87); */
+  color: black;
+  /* background-color: #14202b; */
+  background-color: lightgray;
   padding: 0 25px;
 }
 
@@ -43,7 +45,8 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #14202b;
+  /* background-color: #14202b; */
+  background-color: lightgray;
   position: sticky;
   top: 0;
 }
@@ -62,7 +65,9 @@ main {
 
 .name {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  color: #66d9ed;
+  /* color: #66d9ed; */
+  color: black;
+
   padding-left: 15px;
   font-size: 1.5em;
 }
@@ -76,7 +81,8 @@ main {
   margin-top: 10px;
   font-size: 2em;
   font-weight: 300px;
-  color: #66d9ed;
+  /* color: #66d9ed; */
+  color: black;
   text-align: center;
 }
 
@@ -102,7 +108,8 @@ main {
   gap: 0px;
 }
 .link {
-  color: white;
+  /* color: white; */
+  color: black;
   display: flex;
   align-items: center;
   padding: 0px 15px;
@@ -116,6 +123,7 @@ main {
   background: #66d9ed;
   color: #000;
   transition: all 0.5s;
+  cursor: pointer;
 }
 .active {
   background: #66d9ed;

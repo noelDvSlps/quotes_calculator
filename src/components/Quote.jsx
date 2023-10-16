@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import { useNavbar } from "../providers/navbarProvider";
 
 export const Quote = ({ id }) => {
+  const summaryQtys = [10, 20, 30];
   const {
     items,
     BOM,
@@ -32,7 +33,7 @@ export const Quote = ({ id }) => {
       })
     );
   };
-  const totalCostMachine = () => {
+  const totalCostMachine = (qty) => {
     let cost = 0;
     machineKeys.map((machineKey) => {
       if (machineKey.toLowerCase().includes("cost")) {
@@ -40,10 +41,10 @@ export const Quote = ({ id }) => {
         cost = filteredMachine[0][machineKey] + cost;
       }
     });
-    return cost;
+    return cost * qty;
   };
 
-  const totalCostMachineBom = () => {
+  const totalCostMachineBom = (qty) => {
     let cost = 0;
     filteredBOM.map((sub) => {
       const item = items.find((item) => item.id === sub.subId);
@@ -55,6 +56,31 @@ export const Quote = ({ id }) => {
           machineInfo.materialCostPerSet) *
         sub.qtyPerSet;
     });
+    return cost * qty;
+  };
+
+  const totalCostOutside = (qty) => {
+    const outsideRange = filteredOutside.find((outside) => {
+      return qty >= outside.qtyStart && qty <= outside.qtyEnd;
+    });
+
+    return outsideRange ? outsideRange.price * qty : "error";
+  };
+  const totalCostAssy = (qty) => {
+    const assyRange = filteredAssembly.find((assy) => {
+      return qty >= assy.qtyStart && qty <= assy.qtyEnd;
+    });
+
+    return assyRange ? assyRange.price * qty : "error";
+  };
+
+  const itemTotalCost = (qty) => {
+    let cost = 0;
+    cost = cost + (filteredMachine.length ? totalCostMachine(qty) : 0);
+    cost = cost + (filteredBOM.length ? totalCostMachineBom(qty) : 0);
+    cost = cost + (filteredOutside.length ? totalCostOutside(qty) : 0);
+    cost = cost + (filteredAssembly.length ? totalCostAssy(qty) : 0);
+
     return cost;
   };
 
@@ -62,10 +88,12 @@ export const Quote = ({ id }) => {
     <div className="projects" style={{ flexDirection: "column" }}>
       <div className="sub-container">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span>
+          <span style={{ fontWeight: "600px", color: "maroon" }}>
             {topItem.name} {topItem.description}{" "}
           </span>
-          <span onClick={() => onHandleDelete({ id })}>❌</span>
+          <span className="link" onClick={() => onHandleDelete({ id })}>
+            ❌
+          </span>
         </div>
         {filteredMachine.length ? (
           <div>
@@ -153,7 +181,7 @@ export const Quote = ({ id }) => {
             </Table>
             <div>
               Total Cost( cycle time ($90/hr)+ setup time($80/hr) +
-              materialCostPerSet): ${totalCostMachineBom()}
+              materialCostPerSet): ${totalCostMachineBom(1)}
             </div>
           </div>
         ) : null}
@@ -210,6 +238,48 @@ export const Quote = ({ id }) => {
             </Table>
           </div>
         ) : null}
+
+        <section id={"summary-" + topItem.name}>
+          <div>Summary</div>
+
+          <div>
+            {summaryQtys.map((summaryQty, index) => (
+              <div key={index} style={{ border: "1px solid" }}>
+                <div>
+                  <strong>Price for {summaryQty}: </strong>
+                </div>
+                <div>
+                  {filteredMachine.length
+                    ? "Machining: $ " + totalCostMachine(summaryQty)
+                    : null}
+                </div>
+                <div>
+                  {filteredBOM.length
+                    ? "MachiningBOM: $ " + totalCostMachineBom(summaryQty)
+                    : null}
+                </div>
+                <div>
+                  {filteredOutside.length
+                    ? "Outside: $ " + totalCostOutside(summaryQty)
+                    : null}
+                </div>
+                <div>
+                  {filteredAssembly.length
+                    ? "Assembly: $ " + totalCostAssy(summaryQty)
+                    : null}
+                </div>
+                <hr />
+                <span>
+                  <strong>TOTAL </strong>
+                </span>
+                ${" "}
+                {isNaN(itemTotalCost(summaryQty))
+                  ? summaryQty + " is out of range"
+                  : itemTotalCost(summaryQty)}
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export const Items = () => {
                       // as={Link} to={item.path}
                       onClick={() => handleAddQuote(item.id)}
                     >
-                      Quote
+                      Add to Quote
                     </Button>
                   </td>
                 </tr>

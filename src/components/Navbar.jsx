@@ -94,7 +94,9 @@ export const Navbar = ({ children }) => {
             menuItem.map((item, index) => (
               <div key={index}>
                 {Object.hasOwn(item, "submenu") ? (
-                  <Dropdown item={item} />
+                  <div className={"link"}>
+                    <Dropdown item={item} />
+                  </div>
                 ) : (
                   <div className={"link"}>
                     <Nav.Link as={Link} to={item.path}>
