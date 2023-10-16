@@ -7,6 +7,14 @@ export const Items = () => {
     setQuoteItems([...quoteItems, { itemId: id, totalCost: 0 }]);
   };
 
+  const onHandleDelete = (id) => {
+    setQuoteItems(
+      quoteItems.filter((quoteItem) => {
+        return quoteItem.itemId !== id;
+      })
+    );
+  };
+
   return (
     <div className="page-container" style={{ height: "fit-content" }}>
       <div className="page-title"> Items </div>
@@ -32,9 +40,19 @@ export const Items = () => {
                       style={{ margin: "10px" }}
                       // onClick={() => navigate(`/quotes/${item.id}`)}
                       // as={Link} to={item.path}
-                      onClick={() => handleAddQuote(item.id)}
+                      onClick={() =>
+                        quoteItems.find((q) => {
+                          return q.itemId === item.id;
+                        })
+                          ? onHandleDelete(item.id)
+                          : handleAddQuote(item.id)
+                      }
                     >
-                      Add to Quote
+                      {quoteItems.find((q) => {
+                        return q.itemId === item.id;
+                      })
+                        ? "Remove"
+                        : "Add to quote"}
                     </Button>
                   </td>
                 </tr>
